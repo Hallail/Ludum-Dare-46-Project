@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class camera_follow : MonoBehaviour
 {
-    public float smoothness = 0.5f;
+    public float smoothness = 0.25f;
     public Vector3 Offset = new Vector3(0, 5, 0);
     public GameObject target;
     private Transform transform;
