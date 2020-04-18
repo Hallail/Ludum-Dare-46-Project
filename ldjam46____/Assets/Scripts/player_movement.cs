@@ -11,9 +11,9 @@ public class player_movement : MonoBehaviour
         transform = GetComponent<Transform>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
+        //basic movement
         float vx = Input.GetAxis("Horizontal");
         float vy = Input.GetAxis("Vertical");
         Vector3 delta = new Vector3(vx * speed * Time.deltaTime, 0, vy * speed * Time.deltaTime);
