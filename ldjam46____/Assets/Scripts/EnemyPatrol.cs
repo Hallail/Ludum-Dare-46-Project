@@ -10,26 +10,23 @@ public class EnemyPatrol : MonoBehaviour
     private float waitTime;
     public float startWaitTime;
 
-    public Transform moveSpot;
-
-    public float minX;
-    public float maxX;
-    public float posY;
+    public Transform[] moveSpots;
+    private int randomSpot;
+    
 
     void Start()
     {
         waitTime = startWaitTime;
-
-        moveSpot.position = new Vector2(Random.Range(minX, maxX), posY);
+        randomSpot = Random.Range(0, moveSpots.Length);
     }
 
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, moveSpot.position, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, moveSpots[randomSpot].position, speed * Time.deltaTime);
 
-        if(Vector2.Distance(transform.position, moveSpot.position) < 0.2f){
+        if(Vector3.Distance(transform.position, moveSpots[randomSpot].position) < 0.2f){
             if(waitTime <= 0){
-                moveSpot.position = new Vector2(Random.Range(minX, maxX), posY);
+                randomSpot = Random.Range(0, moveSpots.Length);
                 waitTime = startWaitTime;
             }else{
                 waitTime -= Time.deltaTime;
@@ -37,7 +34,11 @@ public class EnemyPatrol : MonoBehaviour
         }
     }
     void OnTriggerEnter(Collider other){
-        if(other.gameObject.tag=="Player")
+        if(other.gameObject.tag=="Player"){
         SceneManager.LoadScene("Dead");
+        }
+        else {
+             waitTime = startWaitTime;
+        }
     }
 }
